@@ -7,11 +7,25 @@
 	"category": "text",
 	"keywords": [ "tidbits", "tips", "tricks", "insights", "terms", "definitions", "glossary", "facts", "fun facts", "quick tips", "short insights" ],
 	"description": "Display hand-picked Tidbit posts in a variety of layouts.",
+	"attributes": {
+		"displayMode": {
+			"type": "string",
+			"default": "accordion",
+			"enum": [ "accordion", "stacked", "columns" ]
+		}
+	},
+	"providesContext": {
+		"tidbits/displayMode": "displayMode"
+	},
 	"supports": {
 		"html": false,
 		"anchor": true,
+		"align": [ "wide", "full" ],
+		"layout": {
+			"allowEditing": false
+		},
 		"spacing": {
-			"margin": true,
+			"margin": [ "top", "bottom" ],
 			"padding": true
 		}
 	},
@@ -19,5 +33,6 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"render": "file:./render.php"
+	"render": "file:./render.php",
+	"viewScriptModule": "file:./view.js"
 }
