@@ -1,0 +1,39 @@
+<?php
+// This file is generated. Do not modify it manually.
+return array(
+	'tidbits' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'tidbits/tidbit',
+		'version' => '0.1.0',
+		'title' => 'Tidbits',
+		'category' => 'text',
+		'keywords' => array(
+			'tidbits',
+			'tips',
+			'tricks',
+			'insights',
+			'terms',
+			'definitions',
+			'glossary',
+			'facts',
+			'fun facts',
+			'quick tips',
+			'short insights'
+		),
+		'description' => 'Display hand-picked Tidbit posts in a variety of layouts.',
+		'supports' => array(
+			'html' => false,
+			'anchor' => true,
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
+			)
+		),
+		'textdomain' => 'tidbits',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'render' => 'file:./render.php'
+	)
+);

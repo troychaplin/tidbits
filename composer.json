@@ -1,0 +1,27 @@
+{
+	"name": "troychaplin/tidbits",
+	"description": "Flexible blocks for organizing and displaying bite-sized paired content.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=7.0"
+	},
+"autoload": {
+		"classmap": [
+			"classes/"
+		]
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^3.3.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"format": "phpcbf",
+		"lint": "phpcs"
+	}
+}
