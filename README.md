@@ -1,3 +1,5 @@
+<img src="assets/banner-772x250.png" alt="A purple image with floating description lists" style="width: 100%; height: auto;">
+
 # Tidbits
 
 **Flexible blocks for organizing and displaying bite-sized paired content in WordPress.**
