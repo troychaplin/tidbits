@@ -10,7 +10,10 @@ All tokens are defined on the `.tidbits` wrapper element and can be overridden a
 |-------|---------|-------------|
 | `--tidbits-border-color` | `#e5e5e5` | Border color between items |
 | `--tidbits-padding-block` | `0.75rem` | Vertical padding on each item |
+| `--tidbits-term-color` | `inherit` | Text color for the term/title |
+| `--tidbits-term-font-size` | `inherit` | Font size for the term/title |
 | `--tidbits-term-font-weight` | `600` | Font weight for the term/title |
+| `--tidbits-content-font-size` | `inherit` | Font size for the content/definition area |
 | `--tidbits-columns-term-width` | `260px` | Fixed width of the term column in columns mode |
 | `--tidbits-columns-gap` | `1.5rem` | Gap between term and content in columns mode |
 | `--tidbits-accordion-speed` | `0.3s` | Duration of the accordion expand/collapse animation |
