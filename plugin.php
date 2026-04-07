@@ -39,6 +39,7 @@ $tidbits_modules = array(
 	new Tidbits\Register_Blocks( __DIR__ . '/build' ),
 	new Tidbits\Register_Tidbit_Post_Type(),
 	new Tidbits\Register_Flavour_Taxonomy(),
+	new Tidbits\Settings_Page(),
 );
 
 foreach ( $tidbits_modules as $tidbits_module ) {
