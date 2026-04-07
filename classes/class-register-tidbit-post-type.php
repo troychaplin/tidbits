@@ -30,9 +30,9 @@ class Register_Tidbit_Post_Type extends Plugin_Module {
 	 * Register the Tidbit post type.
 	 */
 	public function register_post_type() {
-		$settings = Settings_Page::get();
-		$singular = $settings['post_type_singular'];
-		$plural   = $settings['post_type_plural'];
+		$settings  = Settings_Page::get();
+		$singular  = $settings['post_type_singular'];
+		$plural    = $settings['post_type_plural'];
 		$is_public = $settings['post_type_public'];
 
 		$labels = array(
