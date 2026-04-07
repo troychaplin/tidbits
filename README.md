@@ -1,4 +1,4 @@
-<img src="assets/banner-772x250.png" alt="A purple image with floating description lists" style="width: 100%; height: auto;">
+<img src="assets/github-banner.jpg" alt="A purple image with floating description lists" style="width: 100%; height: auto;">
 
 # Tidbits
 
