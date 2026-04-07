@@ -78,6 +78,7 @@ class ComposerStaticInit516b35aec9f6350400f53cc1ff9a7c75
         'Tidbits\\Register_Blocks' => __DIR__ . '/../..' . '/classes/class-register-blocks.php',
         'Tidbits\\Register_Flavour_Taxonomy' => __DIR__ . '/../..' . '/classes/class-register-flavour-taxonomy.php',
         'Tidbits\\Register_Tidbit_Post_Type' => __DIR__ . '/../..' . '/classes/class-register-tidbit-post-type.php',
+        'Tidbits\\Settings_Page' => __DIR__ . '/../..' . '/classes/class-settings-page.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

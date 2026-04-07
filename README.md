@@ -1,174 +1,59 @@
-# Multi Block Starter Plugin
+# Tidbits
 
-Supercharge your WordPress block development with this modern, production-ready starter plugin. Built for developers who need a robust foundation for creating multiple block types, this plugin combines the power of static, dynamic, and interactive blocks in one efficient setup. Say goodbye to juggling multiple plugins and hello to a streamlined development workflow with optimized asset loading, modern build tools, and best practices baked in.
+**Flexible blocks for organizing and displaying bite-sized paired content in WordPress.**
 
-This plugin serves as a foundational template for WordPress block development, uniquely combining different block types (dynamic, static, and interactive) into a single, efficient plugin structure.
+Tidbits gives editors a dedicated space to create short, paired content -- FAQs, glossary terms, quick tips, fun facts -- and display them anywhere on the site using a block with three layout options.
 
-## Table of Contents
+## Features
 
--   [Core Features & Architecture](#core-features--architecture)
-    -   [Block Architecture](#block-architecture)
-        -   [Unified Block Management](#unified-block-management)
-        -   [Efficient Asset Loading](#efficient-asset-loading)
-    -   [Build System](#build-system)
-        -   [Asset Management](#asset-management)
-    -   [Technical Implementation](#technical-implementation)
-    -   [Development Environment](#development-environment)
--   [Prerequisites](#prerequisites)
--   [Getting Setup](#getting-setup)
--   [Local WordPress Environment](#local-wordpress-environment)
-    -   [Local Site Info](#local-site-info)
-    -   [Troubleshooting](#troubleshooting)
--   [Development Commands](#development-commands)
--   [Coding Standards](#coding-standards)
--   [Project Structure](#project-structure)
+- **Three display modes** -- Accordion (collapsible), Stacked (vertical list), and Columns (two-column grid) -- selected at the block level and applied consistently to all items
+- **Dedicated Tidbit post type** -- Content lives in its own post type, separate from pages and posts, so editors can manage it independently
+- **Flavour taxonomy** -- Organize tidbits into categories for easy management in the admin
+- **Hand-pick content** -- Search and select individual tidbit posts from a combobox in the editor. No shortcodes, no query blocks, just direct selection
+- **Duplicate prevention** -- The editor automatically filters out tidbits already used by sibling blocks, preventing accidental repeats
+- **Live editor preview** -- The block editor shows a real preview of each layout mode, including a working accordion toggle
+- **Animated accordion** -- Smooth CSS-only expand/collapse animation using `grid-template-rows` with no JavaScript layout thrashing
+- **WordPress Interactivity API** -- Accordion state is managed declaratively using the standard WordPress Interactivity API, not custom DOM manipulation
+- **Themeable with CSS tokens** -- All visual properties (colors, spacing, font weights, column widths, animation speed) are exposed as CSS custom properties that themes can override
+- **Accessible by default** -- Semantic `<dl>` markup, `<button>` triggers, `aria-expanded`, `aria-controls`, `role="region"`, and keyboard-navigable
+- **Wide and full-width alignment** -- Supports WordPress block alignment options with proper layout integration
 
-## Core Features & Architecture
+## Requirements
 
-### Block Architecture
+- WordPress 6.6 or later
+- PHP 7.0 or later
 
-#### Unified Block Management
+## Quick Start
 
-The plugin provides a structured approach to managing multiple block types:
+1. **Install the plugin** -- Upload to `wp-content/plugins/tidbits` and activate
+2. **Create some Tidbits** -- Go to **Tidbits** in the admin sidebar and add posts. Each post is a term (title) and definition (content)
+3. **Organize with Flavours** -- Optionally assign Flavour taxonomy terms to group related tidbits
+4. **Add the block** -- In the block editor, insert the **Tidbits** block
+5. **Pick a layout** -- Choose Accordion, Stacked, or Columns from the block sidebar under Display Settings
+6. **Select posts** -- Each Morsel child block lets you search and select a Tidbit post
+7. **Add more** -- Click the block appender to add additional Morsel blocks
 
--   Static Blocks: Traditional Gutenberg blocks rendered entirely in JavaScript
--   Dynamic Blocks: Server-side rendered blocks using PHP for dynamic content
--   Interactive Blocks: Client-side interactive blocks with JavaScript functionality
+## Display Modes
 
-#### Efficient Asset Loading
+**Accordion** -- Each tidbit is a collapsible item with a chevron indicator. Content is hidden by default and expands with a smooth animation on click. Best for FAQs and content where users scan titles before reading.
 
-Each block operates as an independent unit, similar to single-block plugins, with:
+**Stacked** -- A simple vertical list showing both the term and content. Every item is always visible. Best for glossary terms, definitions, or short reference content.
 
--   Isolated asset loading - scripts and styles load only when blocks are used
--   Separate frontend and editor bundles to optimize performance
--   Smart asset versioning through WordPress's build process (the asset.php files automatically track dependencies and versions based on content changes)
+**Columns** -- A two-column grid with the term on the left and content on the right. Responsive: collapses to a single column on small screens. Best for metadata, specifications, or key-value style content.
 
-### Build System
+## Documentation
 
-#### Asset Management
+Detailed documentation is available in the [`docs/`](docs/) directory:
 
-The plugin uses WordPress's modern build system with some notable features:
+- [Getting Started](docs/getting-started.md) -- Installation and first steps
+- [Blocks](docs/blocks.md) -- Parent and child block architecture
+- [Display Modes](docs/display-modes.md) -- Layout options and markup output
+- [Custom Post Type](docs/custom-post-type.md) -- Tidbit posts and Flavour taxonomy
+- [Theming](docs/theming.md) -- CSS custom properties and theme overrides
+- [Interactivity API](docs/interactivity-api.md) -- How the accordion works
+- [Accessibility](docs/accessibility.md) -- ARIA attributes and semantic markup
+- [Development](docs/development.md) -- Build commands and project structure
 
--   Automatic version hashing through `.asset.php` files
--   The version numbers in `Enqueues.php` are dynamically generated during build, preventing cache issues and ensuring users always get the latest block versions
--   Dependencies are automatically tracked and included in the build process
+## License
 
-The build process supports loading an additional script into the block editor for:
-
--   Block variations and modifications
--   Custom style variations
--   Custom block categories
--   Other block related functionality
-
-### Technical Implementation
-
-The plugin demonstrates modern WordPress development practices:
-
--   Proper namespacing and class structure
--   Clean separation of concerns between editor and frontend code
--   WordPress coding standards compliance
--   Development tooling for code quality (ESLint, PHP_CodeSniffer, Prettier)
-
-### Development Environment
-
-The plugin includes a complete development environment with:
-
--   Docker-based local WordPress setup through `wp-env`
--   Hot reloading for development
--   Automated build processes for production
--   Comprehensive linting and formatting tools
-
-This structure provides a robust foundation for building complex block-based solutions while maintaining clean code organization and optimal performance.
-
----
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
--   Node.js (v16 or higher)
--   Docker (if you intend to use `wp-env`)
--   Composer
--   Git
-
-## Getting Setup
-
-This plugin can be cloned into the plugins folder of an existing local WordPress installation, or cloned to any other location if you intend to use `wp-env` for local development.
-
-```
-git clone https://github.com/troychaplin/multi-block-starter.git
-cd multi-block-starter
-npm run setup
-```
-
-## Local WordPress Environment
-
-This project includes [@wordpress/env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) as an optional local development environment. You can run the following to start and stop the Docker container:
-
--   `npm run wp-env start`
--   `npm run wp-env stop`
-
-### Local Site Info
-
--   Site: http://localhost:8888
--   Admin: http://localhost:8888/wp-admin
--   Login: `admin`
--   Password: `password`
-
-### Troubleshooting
-
-If wp-env issues occur try the following:
-
--   `npm run wp-env stop`
--   `npm run wp-env clean`
--   `npm run wp-env start`
-
-## Development Commands
-
--   `npm start` - Start development mode with hot reloading
--   `npm run build` - Build production assets
--   `npm run lint:js` - Lint JavaScript files
--   `npm run lint:css` - Lint CSS files
--   `npm run format` - Format code using WordPress standards
-
-## Coding Standards
-
-This project follows WordPress coding standards using:
-
--   PHP_CodeSniffer with WordPress Coding Standards
--   ESLint with WordPress configuration
--   Prettier for code formatting
-
-Required VS Code extensions:
-
--   PHP CodeSniffer
--   ESLint
--   Prettier
-
-### Troubleshooting
-
-For PHP_CodeSniffer issues:
-
-```
-composer dump-autoload
-```
-
-## Project Structure
-
-```
-wp-multi-block-starter/
-├── build/                  # Compiled files
-├── src/                    # Source files
-│   └── blocks/             # Block components
-│       └── dynamic/        # Dynamic blocks
-│       └── interactive/    # Interactive blocks
-│       └── static/         # Static blocks
-├── Functions/              # PHP classes
-├── vendor/                 # Composer dependencies
-├── node_modules/           # Node dependencies
-├── .eslintrc.json          # ESLint configuration
-├── .wp-env.json            # WordPress environment config
-├── composer.json           # PHP dependencies
-├── package.json            # Node dependencies
-└── README.md               # This file
-```
+GPL-2.0-or-later

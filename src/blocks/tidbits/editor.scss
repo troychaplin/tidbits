@@ -1,0 +1,19 @@
+/**
+ * Tidbits – Editor Styles
+ *
+ * Frontend styles from style.scss are already enqueued in the editor
+ * via the "style" field in block.json. This file only adds
+ * editor-specific overrides.
+ */
+
+.tidbits-morsel__preview {
+
+	dt {
+		font-weight: 600;
+		margin-bottom: 0.25rem;
+	}
+
+	dd {
+		margin: 0;
+	}
+}
