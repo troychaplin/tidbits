@@ -7,6 +7,7 @@ import {
 import { PanelBody, Placeholder, ComboboxControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { debounce } from '@wordpress/compose';
 import { useMemo, useState } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -87,27 +88,36 @@ export default function Edit( {
 	const { postId } = attributes;
 	const displayMode = context[ 'tidbits/displayMode' ] || 'accordion';
 
-	// Fetch all tidbit posts for the combobox.
-	const { tidbits, isResolving } = useSelect( ( select ) => {
-		const query = {
-			per_page: 100,
-			orderby: 'title',
-			order: 'asc',
-			status: 'publish',
-		};
-		return {
-			tidbits: select( coreStore ).getEntityRecords(
-				'postType',
-				'tidbit',
-				query
-			),
-			isResolving: select( coreStore ).isResolving( 'getEntityRecords', [
-				'postType',
-				'tidbit',
-				query,
-			] ),
-		};
-	}, [] );
+	const [ filterValue, setFilterValue ] = useState( '' );
+
+	// Fetch tidbit posts matching the current search term.
+	const { tidbits, isLoading } = useSelect(
+		( select ) => {
+			const query = {
+				per_page: 20,
+				orderby: 'title',
+				order: 'asc',
+				status: 'publish',
+				_fields: 'id,title',
+			};
+			if ( filterValue ) {
+				query.search = filterValue;
+				query.search_columns = [ 'post_title' ];
+			}
+			return {
+				tidbits: select( coreStore ).getEntityRecords(
+					'postType',
+					'tidbit',
+					query
+				),
+				isLoading: select( coreStore ).isResolving(
+					'getEntityRecords',
+					[ 'postType', 'tidbit', query ]
+				),
+			};
+		},
+		[ filterValue ]
+	);
 
 	// Get postIds used by sibling morsel blocks to prevent duplicates.
 	const siblingPostIds = useSelect(
@@ -128,21 +138,6 @@ export default function Edit( {
 		[ clientId ]
 	);
 
-	// Build combobox options, filtering out posts already used by siblings.
-	const options = useMemo( () => {
-		if ( ! tidbits ) {
-			return [];
-		}
-		return tidbits
-			.filter( ( post ) => ! siblingPostIds.includes( post.id ) )
-			.map( ( post ) => ( {
-				value: post.id,
-				label:
-					decodeEntities( post.title.rendered ) ||
-					__( '(no title)', 'tidbits' ),
-			} ) );
-	}, [ tidbits, siblingPostIds ] );
-
 	// Fetch the selected post for preview.
 	const selectedPost = useSelect(
 		( select ) => {
@@ -157,6 +152,33 @@ export default function Edit( {
 		},
 		[ postId ]
 	);
+
+	// Build combobox options from search results, filtering out sibling
+	// duplicates and ensuring the currently-selected post is always present.
+	const options = useMemo( () => {
+		const fetched = ( tidbits ?? [] )
+			.filter( ( post ) => ! siblingPostIds.includes( post.id ) )
+			.map( ( post ) => ( {
+				value: post.id,
+				label:
+					decodeEntities( post.title.rendered ) ||
+					__( '(no title)', 'tidbits' ),
+			} ) );
+
+		if (
+			selectedPost &&
+			! fetched.some( ( option ) => option.value === selectedPost.id )
+		) {
+			fetched.unshift( {
+				value: selectedPost.id,
+				label:
+					decodeEntities( selectedPost.title?.rendered ) ||
+					__( '(no title)', 'tidbits' ),
+			} );
+		}
+
+		return fetched;
+	}, [ tidbits, siblingPostIds, selectedPost ] );
 
 	const onSelectPost = ( value ) => {
 		setAttributes( { postId: value ? Number( value ) : 0 } );
@@ -178,6 +200,11 @@ export default function Edit( {
 							value={ postId }
 							options={ options }
 							onChange={ onSelectPost }
+							onFilterValueChange={ debounce(
+								setFilterValue,
+								300
+							) }
+							isLoading={ isLoading }
 						/>
 					</PanelBody>
 				</InspectorControls>
@@ -196,10 +223,12 @@ export default function Edit( {
 							value={ postId }
 							options={ options }
 							onChange={ onSelectPost }
+							onFilterValueChange={ debounce(
+								setFilterValue,
+								300
+							) }
+							isLoading={ isLoading }
 						/>
-						{ isResolving && (
-							<p>{ __( 'Loading tidbits…', 'tidbits' ) }</p>
-						) }
 					</Placeholder>
 				) : (
 					<>
