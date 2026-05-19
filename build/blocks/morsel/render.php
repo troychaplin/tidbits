@@ -28,9 +28,9 @@ if ( ! $tidbits_post || 'tidbit' !== $tidbits_post->post_type || 'publish' !== $
 $tidbits_display_mode = $block->context['tidbits/displayMode'] ?? 'accordion';
 $tidbits_title        = esc_html( get_the_title( $tidbits_post ) );
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core filter required to render block content.
-$tidbits_content      = apply_filters( 'the_content', $tidbits_post->post_content );
-$tidbits_morsel_id    = 'morsel-' . $tidbits_post_id;
-$tidbits_term_id      = 'morsel-term-' . $tidbits_post_id;
+$tidbits_content   = apply_filters( 'the_content', $tidbits_post->post_content );
+$tidbits_morsel_id = 'morsel-' . $tidbits_post_id;
+$tidbits_term_id   = 'morsel-term-' . $tidbits_post_id;
 
 if ( 'accordion' === $tidbits_display_mode ) :
 	$tidbits_context = wp_interactivity_data_wp_context( array( 'isOpen' => false ) );
