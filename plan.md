@@ -1,9 +1,11 @@
 # Tidbits Plan
 
-## Part 1 — Accordion accessibility pass (DONE)
+## Part 1 — Accordion accessibility pass (IMPLEMENTED in this branch)
 
-Implemented on `change/a11y-iapi`. Surgical a11y fixes to the accordion, no
-feature changes:
+Status note: this was stashed/reverted twice during iteration, then re-applied.
+As of now it IS in the working tree (verified against `morsel/render.php`,
+`tidbits/render.php`, both `edit.js`). Not yet committed. Surgical a11y fixes to
+the accordion, no feature changes:
 
 - Accordion restructured to the WAI-ARIA APG disclosure pattern: `<div>` wrapper
   (not `<dl>`), each item is `<h3 class="tidbits-morsel__heading"><button></h3>`

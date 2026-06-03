@@ -22,6 +22,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		className: `tidbits tidbits--${ displayMode }`,
 	} );
 
+	// Accordion uses a heading-based disclosure structure, so the wrapper is a
+	// plain <div>; static modes remain a description list.
+	const WrapperTag = displayMode === 'accordion' ? 'div' : 'dl';
+
 	return (
 		<>
 			<InspectorControls>
@@ -36,12 +40,12 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<dl { ...blockProps }>
+			<WrapperTag { ...blockProps }>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 					template={ TEMPLATE }
 				/>
-			</dl>
+			</WrapperTag>
 		</>
 	);
 }

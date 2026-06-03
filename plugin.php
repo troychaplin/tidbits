@@ -17,6 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! defined( 'TIDBITS_VERSION' ) ) {
+	define( 'TIDBITS_VERSION', '0.1.0' );
+}
+
 // Composer autoload.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
@@ -40,6 +44,7 @@ $tidbits_modules = array(
 	new Tidbits\Register_Tidbit_Post_Type(),
 	new Tidbits\Register_Flavour_Taxonomy(),
 	new Tidbits\Settings_Page(),
+	new Tidbits\Styles(),
 );
 
 foreach ( $tidbits_modules as $tidbits_module ) {

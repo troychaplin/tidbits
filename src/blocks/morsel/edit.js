@@ -31,38 +31,37 @@ const ChevronIcon = ( { isOpen } ) => (
 
 const AccordionPreview = ( { title, content, postId } ) => {
 	const [ isOpen, setIsOpen ] = useState( false );
-	const morselId = `morsel-${ postId }`;
-	const termId = `morsel-term-${ postId }`;
+	const panelId = `morsel-${ postId }-panel`;
+	const toggleId = `morsel-${ postId }-toggle`;
 
 	return (
 		<div className="tidbits-morsel tidbits-morsel--accordion">
-			<dt className="tidbits-morsel__term">
+			<h3 className="tidbits-morsel__heading">
 				<button
 					type="button"
 					className="tidbits-morsel__trigger"
-					id={ termId }
+					id={ toggleId }
 					aria-expanded={ isOpen }
-					aria-controls={ morselId }
+					aria-controls={ panelId }
 					onClick={ () => setIsOpen( ! isOpen ) }
 				>
 					<span className="tidbits-morsel__title">{ title }</span>
 					<ChevronIcon isOpen={ isOpen } />
 				</button>
-			</dt>
-			<dd
-				className={ `tidbits-morsel__content${
+			</h3>
+			<div
+				className={ `tidbits-morsel__panel${
 					isOpen ? ' is-open' : ''
 				}` }
-				id={ morselId }
-				role="region"
-				aria-labelledby={ termId }
-				aria-hidden={ ! isOpen }
+				id={ panelId }
+				aria-labelledby={ toggleId }
+				inert={ ! isOpen ? '' : undefined }
 			>
 				<div
 					className="tidbits-morsel__inner"
 					dangerouslySetInnerHTML={ { __html: content } }
 				/>
-			</dd>
+			</div>
 		</div>
 	);
 };

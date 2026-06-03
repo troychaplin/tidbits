@@ -64,4 +64,5 @@ return array(
     'Tidbits\\Register_Flavour_Taxonomy' => $baseDir . '/classes/class-register-flavour-taxonomy.php',
     'Tidbits\\Register_Tidbit_Post_Type' => $baseDir . '/classes/class-register-tidbit-post-type.php',
     'Tidbits\\Settings_Page' => $baseDir . '/classes/class-settings-page.php',
+    'Tidbits\\Styles' => $baseDir . '/classes/class-styles.php',
 );
