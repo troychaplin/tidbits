@@ -75,12 +75,52 @@ return array(
 			'layout' => array(
 				'allowEditing' => false
 			),
+			'color' => array(
+				'text' => true,
+				'background' => true,
+				'gradients' => true,
+				'__experimentalDefaultControls' => array(
+					'background' => true,
+					'text' => true
+				)
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'fontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalDefaultControls' => array(
+					'fontSize' => true
+				)
+			),
 			'spacing' => array(
 				'margin' => array(
 					'top',
 					'bottom'
 				),
 				'padding' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'width' => true,
+				'style' => true,
+				'__experimentalDefaultControls' => array(
+					'color' => true,
+					'width' => true,
+					'style' => true
+				)
+			)
+		),
+		'selectors' => array(
+			'root' => '.tidbits',
+			'color' => array(
+				'text' => '.tidbits-morsel__trigger, .tidbits-morsel__term',
+				'background' => '.tidbits'
+			),
+			'typography' => '.tidbits-morsel__trigger, .tidbits-morsel__term',
+			'border' => '.tidbits-morsel',
+			'spacing' => array(
+				'padding' => '.tidbits',
+				'margin' => '.tidbits'
 			)
 		),
 		'textdomain' => 'tidbits',

@@ -1,16 +1,40 @@
 /**
  * Tidbits – Frontend Styles
  *
- * All visual tokens are CSS custom properties emitted by the Tidbits\Styles
- * registry (classes/class-styles.php) as the single source of truth; this file
- * only consumes them via `var( --tidbits-* )`.
- *
- * Tokenised properties are applied DIRECTLY to leaf elements (trigger, title,
- * term, panel, icon) — never inherited from the <h3>/<dt> wrappers — because a
- * direct property always beats an inherited one, whatever the specificity. The
- * wrappers are reset (font/colour/margin) with enough specificity to beat theme
- * heading rules so nothing bleeds through.
+ * Token defaults are CSS custom properties defined at zero specificity on
+ * :where(.tidbits). Visual properties that block supports can override are
+ * applied via :where() so Global Styles and per-block inline styles always
+ * win. Structural layout rules stay at their natural specificity.
  */
+
+/* -----------------------------------------------
+   Token defaults (zero specificity — true floor)
+   ----------------------------------------------- */
+
+:where(.tidbits) {
+	--tidbits-term-font-family: inherit;
+	--tidbits-term-font-size: 1rem;
+	--tidbits-term-font-weight: 600;
+	--tidbits-term-line-height: 1.4;
+	--tidbits-term-color: inherit;
+	--tidbits-term-color-hover: inherit;
+	--tidbits-header-bg: transparent;
+	--tidbits-panel-bg: transparent;
+	--tidbits-content-color: inherit;
+	--tidbits-content-font-size: inherit;
+	--tidbits-focus-color: currentcolor;
+	--tidbits-padding-block: 0.75rem;
+	--tidbits-divider-color: #e5e5e5;
+	--tidbits-divider-width: 1px;
+	--tidbits-divider-style: solid;
+	--tidbits-panel-inset: 0;
+	--tidbits-columns-term-width: 260px;
+	--tidbits-columns-gap: 1.5rem;
+	--tidbits-trigger-gap: 0.5rem;
+	--tidbits-icon-color: #808080;
+	--tidbits-icon-size: 20px;
+	--tidbits-accordion-speed: 0.3s;
+}
 
 .tidbits {
 	margin: 0;
@@ -23,7 +47,6 @@
 
 .tidbits-morsel {
 	display: grid;
-	border-bottom: var(--tidbits-divider-width) var(--tidbits-divider-style) var(--tidbits-divider-color);
 	padding-block: var(--tidbits-padding-block);
 
 	&:last-child {
@@ -35,9 +58,16 @@
 	}
 }
 
-/* Static term (stacked / columns) — reset then tokenise directly. */
+:where(.tidbits-morsel) {
+	border-bottom: var(--tidbits-divider-width) var(--tidbits-divider-style) var(--tidbits-divider-color);
+}
+
+/* Static term (stacked / columns) — margin reset stays at 0,2,0 to beat dt defaults. */
 .tidbits .tidbits-morsel__term {
 	margin: 0;
+}
+
+:where(.tidbits) :where(.tidbits-morsel__term) {
 	color: var(--tidbits-term-color);
 	font-family: var(--tidbits-term-font-family);
 	font-size: var(--tidbits-term-font-size);
@@ -48,8 +78,6 @@
 .tidbits-morsel__content {
 	margin: 0;
 	padding: 0;
-	color: var(--tidbits-content-color);
-	font-size: var(--tidbits-content-font-size);
 
 	> *:first-child {
 		margin-block-start: 0;
@@ -60,13 +88,21 @@
 	}
 }
 
+:where(.tidbits-morsel__content) {
+	color: var(--tidbits-content-color);
+	font-size: var(--tidbits-content-font-size);
+}
+
 /* -----------------------------------------------
    Accordion mode
    ----------------------------------------------- */
 
 .tidbits--accordion .tidbits-morsel--accordion:first-child {
-	border-top: var(--tidbits-divider-width) var(--tidbits-divider-style) var(--tidbits-divider-color);
 	padding-block-start: var(--tidbits-padding-block);
+}
+
+:where(.tidbits--accordion) :where(.tidbits-morsel--accordion:first-child) {
+	border-top: var(--tidbits-divider-width) var(--tidbits-divider-style) var(--tidbits-divider-color);
 }
 
 /* Heading wrapper: neutralise theme h3 rules (higher specificity than
@@ -83,23 +119,26 @@
 	width: 100%;
 	padding: 0;
 	border: none;
+	text-align: start;
+	cursor: pointer;
+	gap: var(--tidbits-trigger-gap);
+
+	&:focus-visible {
+		outline: 2px solid var(--tidbits-focus-color);
+		outline-offset: 2px;
+	}
+}
+
+:where(.tidbits-morsel__trigger) {
 	background: var(--tidbits-header-bg);
 	color: var(--tidbits-term-color);
 	font-family: var(--tidbits-term-font-family);
 	font-size: var(--tidbits-term-font-size);
 	font-weight: var(--tidbits-term-font-weight);
 	line-height: var(--tidbits-term-line-height);
-	text-align: start;
-	cursor: pointer;
-	gap: var(--tidbits-trigger-gap);
 
 	&:hover {
 		color: var(--tidbits-term-color-hover);
-	}
-
-	&:focus-visible {
-		outline: 2px solid var(--tidbits-focus-color);
-		outline-offset: 2px;
 	}
 }
 
@@ -122,7 +161,6 @@
 .tidbits-morsel--accordion .tidbits-morsel__panel {
 	display: grid;
 	grid-template-rows: 0fr;
-	background: var(--tidbits-panel-bg);
 	transition: grid-template-rows var(--tidbits-accordion-speed) ease;
 
 	&.is-open {
@@ -130,10 +168,21 @@
 	}
 }
 
+:where(.tidbits-morsel--accordion .tidbits-morsel__panel) {
+	background: var(--tidbits-panel-bg);
+}
+
 .tidbits-morsel__inner {
 	overflow: hidden;
 	padding: var(--tidbits-panel-inset);
+}
+
+:where(.tidbits-morsel__inner) {
 	color: var(--tidbits-content-color);
+	font-size: var(--tidbits-content-font-size);
+}
+
+:where(.tidbits-morsel__inner) :where(h1, h2, h3, h4, h5, h6) {
 	font-size: var(--tidbits-content-font-size);
 }
 

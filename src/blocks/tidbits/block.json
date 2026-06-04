@@ -24,11 +24,51 @@
 		"layout": {
 			"allowEditing": false
 		},
+        "color": {
+            "text": true,
+            "background": true,
+            "gradients": true,
+            "__experimentalDefaultControls": {
+                "background": true,
+                "text": true
+            }
+        },
+        "typography": {
+            "fontSize": true,
+            "fontFamily": true,
+            "__experimentalFontWeight": true,
+            "__experimentalDefaultControls": {
+                "fontSize": true
+            }
+        },
 		"spacing": {
 			"margin": [ "top", "bottom" ],
 			"padding": true
-		}
+		},
+        "__experimentalBorder": {
+            "color": true,
+            "width": true,
+            "style": true,
+            "__experimentalDefaultControls": {
+                "color": true,
+                "width": true,
+                "style": true
+            }
+        }
 	},
+    "selectors": {
+        "root": ".tidbits",
+        "color": {
+            "text": ".tidbits-morsel__trigger, .tidbits-morsel__term",
+            "background": ".tidbits"
+        },
+        "typography": ".tidbits-morsel__trigger, .tidbits-morsel__term",
+        "border": ".tidbits-morsel",
+        "spacing": {
+            "padding": ".tidbits",
+            "margin": ".tidbits"
+        }
+    },
 	"textdomain": "tidbits",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

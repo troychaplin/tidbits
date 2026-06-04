@@ -6,8 +6,9 @@
  * editor-specific overrides.
  */
 
-.tidbits-morsel__preview {
+ @import './style.scss';
 
+.tidbits-morsel__preview {
 	dt {
 		font-weight: 600;
 		margin-bottom: 0.25rem;
