@@ -17,12 +17,19 @@ if ( empty( trim( $content ) ) ) {
 	return;
 }
 
-$tidbits_display_mode  = $attributes['displayMode'] ?? 'accordion';
-$tidbits_wrapper_attrs = get_block_wrapper_attributes(
-	array(
-		'class' => 'tidbits tidbits--' . esc_attr( $tidbits_display_mode ),
-	)
-);
+$tidbits_display_mode = $attributes['displayMode'] ?? 'accordion';
+
+$custom_props = [];
+if ( ! empty( $attributes['iconColor'] ) ) {
+	$custom_props[] = '--tidbits-icon-color: ' . esc_attr( $attributes['iconColor'] );
+}
+
+$wrapper_args = array( 'class' => 'tidbits tidbits--' . esc_attr( $tidbits_display_mode ) );
+if ( ! empty( $custom_props ) ) {
+	$wrapper_args['style'] = implode( '; ', $custom_props );
+}
+
+$tidbits_wrapper_attrs = get_block_wrapper_attributes( $wrapper_args );
 
 if ( 'accordion' === $tidbits_display_mode ) {
 	// Accordion uses the APG disclosure pattern (heading + button + panel), so

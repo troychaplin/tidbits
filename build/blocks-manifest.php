@@ -23,7 +23,30 @@ return array(
 		),
 		'supports' => array(
 			'html' => false,
-			'reusable' => false
+			'reusable' => false,
+			'__experimentalBorder' => array(
+				'color' => true,
+				'width' => true,
+				'__experimentalDefaultControls' => array(
+					'color' => true,
+					'width' => true
+				)
+			),
+			'spacing' => array(
+				'padding' => array(
+					'top',
+					'bottom'
+				),
+				'__experimentalDefaultControls' => array(
+					'padding' => true
+				)
+			)
+		),
+		'selectors' => array(
+			'border' => '.tidbits-morsel',
+			'spacing' => array(
+				'padding' => '.tidbits-morsel'
+			)
 		),
 		'textdomain' => 'tidbits',
 		'editorScript' => 'file:./index.js',
@@ -60,6 +83,10 @@ return array(
 					'stacked',
 					'columns'
 				)
+			),
+			'iconColor' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'providesContext' => array(
@@ -86,10 +113,12 @@ return array(
 			),
 			'typography' => array(
 				'fontSize' => true,
-				'fontFamily' => true,
+				'__experimentalFontFamily' => true,
 				'__experimentalFontWeight' => true,
 				'__experimentalDefaultControls' => array(
-					'fontSize' => true
+					'fontSize' => true,
+					'__experimentalFontFamily' => true,
+					'__experimentalFontWeight' => true
 				)
 			),
 			'spacing' => array(
@@ -117,7 +146,7 @@ return array(
 				'background' => '.tidbits'
 			),
 			'typography' => '.tidbits-morsel__trigger, .tidbits-morsel__term',
-			'border' => '.tidbits-morsel',
+			'border' => '.tidbits',
 			'spacing' => array(
 				'padding' => '.tidbits',
 				'margin' => '.tidbits'

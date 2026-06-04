@@ -3,6 +3,7 @@ import {
 	useBlockProps,
 	InnerBlocks,
 	InspectorControls,
+	PanelColorSettings,
 } from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
 
@@ -16,10 +17,14 @@ const DISPLAY_MODE_OPTIONS = [
 ];
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { displayMode } = attributes;
+	const { displayMode, iconColor } = attributes;
+
+	const customStyle = {};
+	if ( iconColor ) customStyle[ '--tidbits-icon-color' ] = iconColor;
 
 	const blockProps = useBlockProps( {
 		className: `tidbits tidbits--${ displayMode }`,
+		style: customStyle,
 	} );
 
 	// Accordion uses a heading-based disclosure structure, so the wrapper is a
@@ -39,6 +44,18 @@ export default function Edit( { attributes, setAttributes } ) {
 						}
 					/>
 				</PanelBody>
+				<PanelColorSettings
+					title={ __( 'Icon', 'tidbits' ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: iconColor || undefined,
+							onChange: ( value ) =>
+								setAttributes( { iconColor: value ?? '' } ),
+							label: __( 'Icon colour', 'tidbits' ),
+						},
+					] }
+				/>
 			</InspectorControls>
 			<WrapperTag { ...blockProps }>
 				<InnerBlocks

@@ -12,6 +12,10 @@
 			"type": "string",
 			"default": "accordion",
 			"enum": [ "accordion", "stacked", "columns" ]
+		},
+		"iconColor": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"providesContext": {
@@ -35,10 +39,12 @@
         },
         "typography": {
             "fontSize": true,
-            "fontFamily": true,
+            "__experimentalFontFamily": true,
             "__experimentalFontWeight": true,
             "__experimentalDefaultControls": {
-                "fontSize": true
+                "fontSize": true,
+                "__experimentalFontFamily": true,
+                "__experimentalFontWeight": true
             }
         },
 		"spacing": {
@@ -63,7 +69,7 @@
             "background": ".tidbits"
         },
         "typography": ".tidbits-morsel__trigger, .tidbits-morsel__term",
-        "border": ".tidbits-morsel",
+        "border": ".tidbits",
         "spacing": {
             "padding": ".tidbits",
             "margin": ".tidbits"

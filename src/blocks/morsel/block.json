@@ -16,7 +16,27 @@
 	"usesContext": [ "tidbits/displayMode" ],
 	"supports": {
 		"html": false,
-		"reusable": false
+		"reusable": false,
+		"__experimentalBorder": {
+			"color": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"width": true
+			}
+		},
+		"spacing": {
+			"padding": [ "top", "bottom" ],
+			"__experimentalDefaultControls": {
+				"padding": true
+			}
+		}
+	},
+	"selectors": {
+		"border": ".tidbits-morsel",
+		"spacing": {
+			"padding": ".tidbits-morsel"
+		}
 	},
 	"textdomain": "tidbits",
 	"editorScript": "file:./index.js",
