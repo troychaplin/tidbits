@@ -19,6 +19,23 @@
     "short insights"
   ],
   "description": "Display hand-picked Tidbit posts in a variety of layouts.",
+  "example": {
+    "viewportWidth": 480,
+    "attributes": {
+      "displayMode": "accordion"
+    },
+    "innerBlocks": [
+      {
+        "name": "tidbits/morsel"
+      },
+      {
+        "name": "tidbits/morsel"
+      },
+      {
+        "name": "tidbits/morsel"
+      }
+    ]
+  },
   "attributes": {
     "displayMode": {
       "type": "string",

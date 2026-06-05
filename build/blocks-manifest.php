@@ -53,6 +53,23 @@ return array(
 			'short insights'
 		),
 		'description' => 'Display hand-picked Tidbit posts in a variety of layouts.',
+		'example' => array(
+			'viewportWidth' => 480,
+			'attributes' => array(
+				'displayMode' => 'accordion'
+			),
+			'innerBlocks' => array(
+				array(
+					'name' => 'tidbits/morsel'
+				),
+				array(
+					'name' => 'tidbits/morsel'
+				),
+				array(
+					'name' => 'tidbits/morsel'
+				)
+			)
+		),
 		'attributes' => array(
 			'displayMode' => array(
 				'type' => 'string',

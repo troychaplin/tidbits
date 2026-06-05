@@ -4,12 +4,37 @@ import {
 	InspectorControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { PanelBody, Placeholder, ComboboxControl } from '@wordpress/components';
+import {
+	PanelBody,
+	Placeholder,
+	ComboboxControl,
+	Disabled,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { debounce } from '@wordpress/compose';
-import { useMemo, useState } from '@wordpress/element';
+import { useMemo, useState, useContext } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
+
+// Canned content for the block/inserter preview, where no real Tidbit posts
+// exist to fetch. Only rendered inside a disabled preview context.
+const PREVIEW_TIDBITS = [
+	{
+		title: __( 'HyperText Markup Language', 'tidbits' ),
+		content:
+			'<p>The standard language for structuring the content of web pages.</p>',
+	},
+	{
+		title: __( 'Cascading Style Sheets', 'tidbits' ),
+		content:
+			'<p>Describes how a document looks — its colours, layout, and typography.</p>',
+	},
+	{
+		title: __( 'Application Programming Interface', 'tidbits' ),
+		content:
+			'<p>A set of rules that lets two pieces of software talk to each other.</p>',
+	},
+];
 
 const ChevronIcon = ( { isOpen } ) => (
 	<svg
@@ -88,11 +113,20 @@ export default function Edit( {
 	const { postId } = attributes;
 	const displayMode = context[ 'tidbits/displayMode' ] || 'accordion';
 
+	// BlockPreview (used by the inserter) renders blocks inside <Disabled>, so
+	// this flags the preview context where canned sample content is shown
+	// instead of fetched posts or the "select a Tidbit" placeholder.
+	const isPreview = useContext( Disabled.Context );
+
 	const [ filterValue, setFilterValue ] = useState( '' );
 
-	// Fetch tidbit posts matching the current search term.
+	// Fetch tidbit posts matching the current search term. Skipped in preview
+	// to avoid REST requests while rendering inserter thumbnails.
 	const { tidbits, isLoading } = useSelect(
 		( select ) => {
+			if ( isPreview ) {
+				return { tidbits: [], isLoading: false };
+			}
 			const query = {
 				per_page: 20,
 				orderby: 'title',
@@ -116,7 +150,14 @@ export default function Edit( {
 				),
 			};
 		},
-		[ filterValue ]
+		[ filterValue, isPreview ]
+	);
+
+	// Position of this morsel among its siblings, used to vary the sample
+	// content across rows in the preview.
+	const blockIndex = useSelect(
+		( select ) => select( blockEditorStore ).getBlockIndex( clientId ),
+		[ clientId ]
 	);
 
 	// Get postIds used by sibling morsel blocks to prevent duplicates.
@@ -185,10 +226,15 @@ export default function Edit( {
 	};
 
 	const blockProps = useBlockProps();
-	const title =
-		decodeEntities( selectedPost?.title?.rendered ) ||
-		__( 'Loading…', 'tidbits' );
-	const content = selectedPost?.content?.rendered || '';
+	const sample =
+		PREVIEW_TIDBITS[ Math.max( 0, blockIndex ?? 0 ) % PREVIEW_TIDBITS.length ];
+	const title = isPreview
+		? sample.title
+		: decodeEntities( selectedPost?.title?.rendered ) ||
+		  __( 'Loading…', 'tidbits' );
+	const content = isPreview
+		? sample.content
+		: selectedPost?.content?.rendered || '';
 
 	return (
 		<>
@@ -210,7 +256,7 @@ export default function Edit( {
 				</InspectorControls>
 			) }
 			<div { ...blockProps }>
-				{ ! postId ? (
+				{ ! postId && ! isPreview ? (
 					<Placeholder
 						icon="admin-post"
 						label={ __( 'Tidbit', 'tidbits' ) }
@@ -236,7 +282,7 @@ export default function Edit( {
 							<AccordionPreview
 								title={ title }
 								content={ content }
-								postId={ postId }
+								postId={ postId || clientId }
 							/>
 						) }
 						{ displayMode !== 'accordion' && (
