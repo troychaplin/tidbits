@@ -127,6 +127,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						setAttributes( {
                             dividerBorder: {},
 							itemPadding: '',
+                            iconColor: '',
 						} )
 					}
 					panelId={ clientId }
@@ -175,17 +176,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							}
 						/>
 					</ToolsPanelItem>
-                </ToolsPanel>
-				
-                <ToolsPanel
-					label={ __( 'Icon', 'morsel' ) }
-					resetAll={ () =>
-						setAttributes( {
-							iconColor: '',
-						} )
-					}
-					panelId={ clientId }
-				>
+                    
 					<ToolsPanelItem
 						label={ __( 'Icon color', 'morsel' ) }
 						hasValue={ () => !! iconColor }
