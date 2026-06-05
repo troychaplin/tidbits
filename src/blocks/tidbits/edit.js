@@ -6,10 +6,10 @@ import {
 	InspectorControls,
 	useSettings,
 	DimensionControl,
-	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
-	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import {
+	BaseControl,
+	ColorPalette,
 	SelectControl,
 	BorderControl,
 	__experimentalToolsPanel as ToolsPanel,
@@ -51,7 +51,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const { displayMode, iconColor, dividerBorder, itemPadding } = attributes;
 
 	const [ themeColors ] = useSettings( 'color.palette' );
-	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	// The theme defines spacing presets but no dimension presets, so feed the
 	// spacing scale to DimensionControl via its `dimensionSizes` prop.
@@ -194,20 +193,16 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						isShownByDefault
 						panelId={ clientId }
 					>
-						<ColorGradientSettingsDropdown
+						<BaseControl.VisualLabel>
+							{ __( 'Icon colour', 'tidbits' ) }
+						</BaseControl.VisualLabel>
+						<ColorPalette
 							__experimentalIsRenderedInSidebar
-							settings={ [
-								{
-									label: __( 'Icon colour', 'morsel' ),
-									colorValue: iconColor || undefined,
-									onColorChange: ( value ) =>
-										setAttributes( {
-											iconColor: value ?? '',
-										} ),
-								},
-							] }
-							panelId={ clientId }
-							{ ...colorGradientSettings }
+							colors={ themeColors }
+							value={ iconColor || undefined }
+							onChange={ ( value ) =>
+								setAttributes( { iconColor: value ?? '' } )
+							}
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
