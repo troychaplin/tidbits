@@ -177,25 +177,27 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						/>
 					</ToolsPanelItem>
                     
-					<ToolsPanelItem
-						label={ __( 'Icon color', 'morsel' ) }
-						hasValue={ () => !! iconColor }
-						onDeselect={ () => setAttributes( { iconColor: '' } ) }
-						isShownByDefault
-						panelId={ clientId }
-					>
-						<BaseControl.VisualLabel>
-							{ __( 'Icon colour', 'tidbits' ) }
-						</BaseControl.VisualLabel>
-						<ColorPalette
-							__experimentalIsRenderedInSidebar
-							colors={ themeColors }
-							value={ iconColor || undefined }
-							onChange={ ( value ) =>
-								setAttributes( { iconColor: value ?? '' } )
-							}
-						/>
-					</ToolsPanelItem>
+                    {displayMode && displayMode === 'accordion' && (
+                        <ToolsPanelItem
+                            label={ __( 'Icon color', 'morsel' ) }
+                            hasValue={ () => !! iconColor }
+                            onDeselect={ () => setAttributes( { iconColor: '' } ) }
+                            isShownByDefault
+                            panelId={ clientId }
+                        >
+                            <BaseControl.VisualLabel>
+                                { __( 'Icon colour', 'tidbits' ) }
+                            </BaseControl.VisualLabel>
+                            <ColorPalette
+                                __experimentalIsRenderedInSidebar
+                                colors={ themeColors }
+                                value={ iconColor || undefined }
+                                onChange={ ( value ) =>
+                                    setAttributes( { iconColor: value ?? '' } )
+                                }
+                            />
+                        </ToolsPanelItem>
+                    )}
 				</ToolsPanel>
 			</InspectorControls>
 
