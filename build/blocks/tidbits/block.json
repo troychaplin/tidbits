@@ -32,10 +32,20 @@
     "iconColor": {
       "type": "string",
       "default": ""
+    },
+    "dividerBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "itemPadding": {
+      "type": "string",
+      "default": ""
     }
   },
   "providesContext": {
-    "tidbits/displayMode": "displayMode"
+    "tidbits/displayMode": "displayMode",
+    "tidbits/dividerBorder": "dividerBorder",
+    "tidbits/itemPadding": "itemPadding"
   },
   "supports": {
     "html": false,

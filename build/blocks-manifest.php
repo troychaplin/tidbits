@@ -19,34 +19,13 @@ return array(
 			)
 		),
 		'usesContext' => array(
-			'tidbits/displayMode'
+			'tidbits/displayMode',
+			'tidbits/dividerBorder',
+			'tidbits/itemPadding'
 		),
 		'supports' => array(
 			'html' => false,
-			'reusable' => false,
-			'__experimentalBorder' => array(
-				'color' => true,
-				'width' => true,
-				'__experimentalDefaultControls' => array(
-					'color' => true,
-					'width' => true
-				)
-			),
-			'spacing' => array(
-				'padding' => array(
-					'top',
-					'bottom'
-				),
-				'__experimentalDefaultControls' => array(
-					'padding' => true
-				)
-			)
-		),
-		'selectors' => array(
-			'border' => '.tidbits-morsel',
-			'spacing' => array(
-				'padding' => '.tidbits-morsel'
-			)
+			'reusable' => false
 		),
 		'textdomain' => 'tidbits',
 		'editorScript' => 'file:./index.js',
@@ -87,10 +66,22 @@ return array(
 			'iconColor' => array(
 				'type' => 'string',
 				'default' => ''
+			),
+			'dividerBorder' => array(
+				'type' => 'object',
+				'default' => array(
+					
+				)
+			),
+			'itemPadding' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'providesContext' => array(
-			'tidbits/displayMode' => 'displayMode'
+			'tidbits/displayMode' => 'displayMode',
+			'tidbits/dividerBorder' => 'dividerBorder',
+			'tidbits/itemPadding' => 'itemPadding'
 		),
 		'supports' => array(
 			'html' => false,

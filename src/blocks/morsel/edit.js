@@ -69,12 +69,13 @@ const AccordionPreview = ( { title, content, postId } ) => {
 const StaticPreview = ( { title, content, mode } ) => (
 	<div className={ `tidbits-morsel tidbits-morsel--${ mode }` }>
 		<dt className="tidbits-morsel__term">{ title }</dt>
-		<dd className="tidbits-morsel__content">
-			<div
-				className="tidbits-morsel__inner"
-				dangerouslySetInnerHTML={ { __html: content } }
-			/>
-		</dd>
+		{ /* Content sits directly in the <dd>, mirroring render.php, so the
+		   `.tidbits-morsel__content > *` margin resets apply and the spacing
+		   around dividers matches the front end (no extra inner wrapper). */ }
+		<dd
+			className="tidbits-morsel__content"
+			dangerouslySetInnerHTML={ { __html: content } }
+		/>
 	</div>
 );
 

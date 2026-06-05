@@ -18,3 +18,39 @@
 		margin: 0;
 	}
 }
+
+/**
+ * Divider + spacing parity for the static layouts in the editor.
+ *
+ * On the front end the morsels are rendered as direct siblings, so the
+ * front-end edge rules only affect the genuine first/last morsel. In the
+ * editor each morsel sits in its own InnerBlocks wrapper, so every morsel is
+ * both an only-child `:first-child` and `:last-child` — which makes those
+ * rules match every item:
+ *   - `.tidbits-morsel:last-child { border-bottom: none }` strips every divider
+ *   - `.tidbits-morsel:first-child { padding-block-start: 0 }` strips the top
+ *     padding from every morsel, so dividers hug the term below them.
+ *
+ * Re-assert both here and undo them only for the true first/last morsel block,
+ * which restores symmetric spacing around each divider. Accordion is excluded —
+ * it draws its own per-item border-top and first-child padding.
+ */
+.editor-styles-wrapper {
+
+	.tidbits--stacked,
+	.tidbits--columns {
+		.tidbits-morsel {
+			padding-block-start: var(--tidbits-padding-block);
+			border-bottom: var(--tidbits-divider-width)
+				var(--tidbits-divider-style) var(--tidbits-divider-color);
+		}
+
+		[data-type='tidbits/morsel']:first-child .tidbits-morsel {
+			padding-block-start: 0;
+		}
+
+		[data-type='tidbits/morsel']:last-child .tidbits-morsel {
+			border-bottom: none;
+		}
+	}
+}
