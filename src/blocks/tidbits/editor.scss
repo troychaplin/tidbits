@@ -6,7 +6,7 @@
  * editor-specific overrides.
  */
 
- @import './style.scss';
+@use './style';
 
 .tidbits-morsel__preview {
 	dt {
@@ -53,4 +53,16 @@
 			border-bottom: none;
 		}
 	}
+}
+
+/**
+ * ColorGradientSettingsDropdown renders its color rows as a bordered "card"
+ * and offsets the first row with a 24px top margin to separate the color
+ * group from the controls above it. Our icon colour is a single row mixed in
+ * among unrelated ToolsPanel controls, so that offset reads as a stray gap —
+ * drop it so the row sits flush like the other controls.
+ */
+.editor-styles-wrapper
+	.block-editor-tools-panel-color-gradient-settings__item:first-child {
+	margin-top: 0;
 }

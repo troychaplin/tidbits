@@ -98,9 +98,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					resetAll={ () =>
 						setAttributes( {
 							displayMode: 'accordion',
-							iconColor: '',
-							dividerBorder: {},
-							itemPadding: '',
 						} )
 					}
 					panelId={ clientId }
@@ -123,33 +120,20 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							}
 						/>
 					</ToolsPanelItem>
-
+                </ToolsPanel>
+				
+                <ToolsPanel
+					label={ __( 'Morsels', 'morsel' ) }
+					resetAll={ () =>
+						setAttributes( {
+                            dividerBorder: {},
+							itemPadding: '',
+						} )
+					}
+					panelId={ clientId }
+				>
 					<ToolsPanelItem
-						label={ __( 'Icon color', 'tidbits' ) }
-						hasValue={ () => !! iconColor }
-						onDeselect={ () => setAttributes( { iconColor: '' } ) }
-						isShownByDefault
-						panelId={ clientId }
-					>
-						<ColorGradientSettingsDropdown
-							__experimentalIsRenderedInSidebar
-							settings={ [
-								{
-									label: __( 'Icon colour', 'tidbits' ),
-									colorValue: iconColor || undefined,
-									onColorChange: ( value ) =>
-										setAttributes( {
-											iconColor: value ?? '',
-										} ),
-								},
-							] }
-							panelId={ clientId }
-							{ ...colorGradientSettings }
-						/>
-					</ToolsPanelItem>
-
-					<ToolsPanelItem
-						label={ __( 'Divider', 'tidbits' ) }
+						label={ __( 'Divider', 'morsel' ) }
 						hasValue={ () =>
 							!! ( dividerBorder?.color || dividerBorder?.width )
 						}
@@ -160,7 +144,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						panelId={ clientId }
 					>
 						<BorderControl
-							label={ __( 'Divider', 'tidbits' ) }
+							label={ __( 'Divider', 'morsel' ) }
 							value={ dividerBorder }
 							onChange={ ( value ) =>
 								setAttributes( { dividerBorder: value || {} } )
@@ -173,7 +157,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					</ToolsPanelItem>
 
 					<ToolsPanelItem
-						label={ __( 'Item padding', 'tidbits' ) }
+						label={ __( 'Item padding', 'morsel' ) }
 						hasValue={ () => itemPadding !== '' }
 						onDeselect={ () =>
 							setAttributes( { itemPadding: '' } )
@@ -182,7 +166,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						panelId={ clientId }
 					>
 						<DimensionControl
-							label={ __( 'Item padding', 'tidbits' ) }
+							label={ __( 'Item padding', 'morsel' ) }
 							value={ toDimensionValue( itemPadding ) }
 							dimensionSizes={ dimensionSizes }
 							onChange={ ( next ) =>
@@ -190,6 +174,40 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 									itemPadding: toSpacingValue( next ) ?? '',
 								} )
 							}
+						/>
+					</ToolsPanelItem>
+                </ToolsPanel>
+				
+                <ToolsPanel
+					label={ __( 'Icon', 'morsel' ) }
+					resetAll={ () =>
+						setAttributes( {
+							iconColor: '',
+						} )
+					}
+					panelId={ clientId }
+				>
+					<ToolsPanelItem
+						label={ __( 'Icon color', 'morsel' ) }
+						hasValue={ () => !! iconColor }
+						onDeselect={ () => setAttributes( { iconColor: '' } ) }
+						isShownByDefault
+						panelId={ clientId }
+					>
+						<ColorGradientSettingsDropdown
+							__experimentalIsRenderedInSidebar
+							settings={ [
+								{
+									label: __( 'Icon colour', 'morsel' ),
+									colorValue: iconColor || undefined,
+									onColorChange: ( value ) =>
+										setAttributes( {
+											iconColor: value ?? '',
+										} ),
+								},
+							] }
+							panelId={ clientId }
+							{ ...colorGradientSettings }
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
