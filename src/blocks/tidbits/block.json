@@ -50,22 +50,10 @@
 			"allowEditing": false
 		},
         "color": {
-            "text": true,
             "background": true,
             "gradients": true,
             "__experimentalDefaultControls": {
-                "background": true,
-                "text": true
-            }
-        },
-        "typography": {
-            "fontSize": true,
-            "__experimentalFontFamily": true,
-            "__experimentalFontWeight": true,
-            "__experimentalDefaultControls": {
-                "fontSize": true,
-                "__experimentalFontFamily": true,
-                "__experimentalFontWeight": true
+                "background": true
             }
         },
 		"spacing": {
@@ -86,10 +74,8 @@
     "selectors": {
         "root": ".tidbits",
         "color": {
-            "text": ".tidbits-morsel__trigger, .tidbits-morsel__term",
             "background": ".tidbits"
         },
-        "typography": ".tidbits-morsel__trigger, .tidbits-morsel__term",
         "border": ".tidbits",
         "spacing": {
             "padding": ".tidbits",

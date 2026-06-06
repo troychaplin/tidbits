@@ -7,6 +7,9 @@
 	"category": "text",
 	"description": "A single Tidbit post displayed within a Tidbits block.",
 	"parent": [ "tidbits/tidbit" ],
+	"example": {
+		"viewportWidth": 360
+	},
 	"attributes": {
 		"postId": {
 			"type": "number",
@@ -20,7 +23,31 @@
 	],
 	"supports": {
 		"html": false,
-		"reusable": false
+		"reusable": false,
+		"color": {
+			"text": true,
+			"background": true,
+			"__experimentalDefaultControls": {
+				"text": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true,
+				"__experimentalFontFamily": true
+			}
+		}
+	},
+	"selectors": {
+		"root": ".tidbits-morsel",
+		"color": {
+			"text": ".tidbits-morsel",
+			"background": ".tidbits-morsel"
+		},
+		"typography": ".tidbits-morsel__term, .tidbits-morsel__trigger, .tidbits-morsel__content, .tidbits-morsel__inner"
 	},
 	"textdomain": "tidbits",
 	"editorScript": "file:./index.js",

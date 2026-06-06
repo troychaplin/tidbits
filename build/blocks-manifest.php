@@ -12,6 +12,9 @@ return array(
 		'parent' => array(
 			'tidbits/tidbit'
 		),
+		'example' => array(
+			'viewportWidth' => 360
+		),
 		'attributes' => array(
 			'postId' => array(
 				'type' => 'number',
@@ -25,7 +28,31 @@ return array(
 		),
 		'supports' => array(
 			'html' => false,
-			'reusable' => false
+			'reusable' => false,
+			'color' => array(
+				'text' => true,
+				'background' => true,
+				'__experimentalDefaultControls' => array(
+					'text' => true
+				)
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalDefaultControls' => array(
+					'fontSize' => true,
+					'__experimentalFontFamily' => true
+				)
+			)
+		),
+		'selectors' => array(
+			'root' => '.tidbits-morsel',
+			'color' => array(
+				'text' => '.tidbits-morsel',
+				'background' => '.tidbits-morsel'
+			),
+			'typography' => '.tidbits-morsel__term, .tidbits-morsel__trigger, .tidbits-morsel__content, .tidbits-morsel__inner'
 		),
 		'textdomain' => 'tidbits',
 		'editorScript' => 'file:./index.js',
@@ -111,22 +138,10 @@ return array(
 				'allowEditing' => false
 			),
 			'color' => array(
-				'text' => true,
 				'background' => true,
 				'gradients' => true,
 				'__experimentalDefaultControls' => array(
-					'background' => true,
-					'text' => true
-				)
-			),
-			'typography' => array(
-				'fontSize' => true,
-				'__experimentalFontFamily' => true,
-				'__experimentalFontWeight' => true,
-				'__experimentalDefaultControls' => array(
-					'fontSize' => true,
-					'__experimentalFontFamily' => true,
-					'__experimentalFontWeight' => true
+					'background' => true
 				)
 			),
 			'spacing' => array(
@@ -150,10 +165,8 @@ return array(
 		'selectors' => array(
 			'root' => '.tidbits',
 			'color' => array(
-				'text' => '.tidbits-morsel__trigger, .tidbits-morsel__term',
 				'background' => '.tidbits'
 			),
-			'typography' => '.tidbits-morsel__trigger, .tidbits-morsel__term',
 			'border' => '.tidbits',
 			'spacing' => array(
 				'padding' => '.tidbits',
